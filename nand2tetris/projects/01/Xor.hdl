@@ -20,4 +20,6 @@ CHIP Xor {
     Not(in=andnotab, out=c0);
     Not(in=andanotb, out=c1);
     Nand(a=c0, b=c1, out=out);
+
+    //Or(And(Not(a), b), And(a, Not(b)))
 }
