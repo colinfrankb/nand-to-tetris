@@ -16,22 +16,31 @@ CHIP Mux {
     PARTS:
     // xy'z' + xyz' + x'yz + xyz
 
-    Not(in=a, out=nota);
-    Not(in=b, out=notb);
-    Not(in=sel, out=notsel);
+    // Not(in=a, out=nota);
+    // Not(in=b, out=notb);
+    // Not(in=sel, out=notsel);
     
-    And(a=a, b=notb, out=aandnotb);
-    And(a=aandnotb, b=notsel, out=aandnotbandnotsel);
+    // And(a=a, b=notb, out=aandnotb);
+    // And(a=aandnotb, b=notsel, out=aandnotbandnotsel);
 
-    And(a=a, b=b, out=aandb);
-    And(a=aandb, b=notsel, out=aandbandnotsel);
+    // And(a=a, b=b, out=aandb);
+    // And(a=aandb, b=notsel, out=aandbandnotsel);
 
-    And(a=nota, b=b, out=notaandb);
-    And(a=notaandb, b=sel, out=notaandbandsel);
+    // And(a=nota, b=b, out=notaandb);
+    // And(a=notaandb, b=sel, out=notaandbandsel);
 
-    And(a=aandb, b=sel, out=aandbandsel);
+    // And(a=aandb, b=sel, out=aandbandsel);
 
-    Or(a=aandnotbandnotsel, b=aandbandnotsel, out=out1);
-    Or(a=out1, b=notaandbandsel, out=out2);
-    Or(a=out2, b=aandbandsel, out=out);
+    // Or(a=aandnotbandnotsel, b=aandbandnotsel, out=out1);
+    // Or(a=out1, b=notaandbandsel, out=out2);
+    // Or(a=out2, b=aandbandsel, out=out);
+
+
+    // (x + yz)(y + z')
+
+    And(a=b, b=sel, out=bandsel);
+    Not(in=sel, out=notsel);
+    Or(a=a, b=bandsel, out=aorbandsel);
+    Or(a=b, b=notsel, out=bornotsel);
+    And(a=aorbandsel, b=bornotsel, out=out);
 }

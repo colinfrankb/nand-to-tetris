@@ -13,12 +13,14 @@ CHIP And16 {
     OUT out[16];
 
     PARTS:
+    //Using Nand would look like this
     Nand(a=a[0], b=b[0], out=c0);
     Nand(a=c0, b=c0, out=out[0]);
     
     Nand(a=a[1], b=b[1], out=c1);
     Nand(a=c1, b=c1, out=out[1]);
 
+    //Using And would look like this
     And(a=a[2], b=b[2], out=out[2]);
     And(a=a[3], b=b[3], out=out[3]);
     And(a=a[4], b=b[4], out=out[4]);
