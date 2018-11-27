@@ -1,0 +1,52 @@
+/**
+ * 8-way multiplexor:
+ * out = a if sel == 000
+ *       b if sel == 001
+ *       etc.
+ *       h if sel == 111
+ */
+
+CHIP Mux8Way {
+    IN a, b, c, d, e, f, g, h, x, y, z;
+    OUT out;
+
+    PARTS:
+    //ax'y'z' + bx'y'z + cx'yz' + dx'yz + exy'z' + fxy'z + gxyz' + hxyz
+
+    Not(in=x, out=notx);
+    Not(in=y, out=noty);
+    Not(in=z, out=notz);
+
+    And(a=notx, b=noty, out=notxnoty);
+    And(a=notx, b=y, out=notxy);
+    And(a=x, b=noty, out=xnoty);
+    And(a=x, b=y, out=xy);
+
+    And(a=notxnoty, b=z, out=notxnotyz);
+    And(a=notxy, b=z, out=notxyz);
+    And(a=xnoty, b=z, out=xnotyz);
+    And(a=xy, b=z, out=xyz);
+    And(a=notxnoty, b=notz, out=notxnotynotz);
+    And(a=notxy, b=notz, out=notxynotz);
+    And(a=xnoty, b=notz, out=xnotynotz);
+    And(a=xy, b=notz, out=xynotz);
+
+    And(a=a, b=notxnotynotz, out=anotxnotynotz);
+    And(a=b, b=notxnotyz, out=bnotxnotyz);
+    And(a=c, b=notxynotz, out=cnotxynotz);
+    And(a=d, b=notxyz, out=dnotxyz);
+    And(a=e, b=xnotynotz, out=exnotynotz);
+    And(a=f, b=xnotyz, out=fxnotyz);
+    And(a=g, b=xynotz, out=gxynotz);
+    And(a=h, b=xyz, out=hxyz);
+
+    Or(a=anotxnotynotz, b=bnotxnotyz, out=aorb);
+    Or(a=cnotxynotz, b=dnotxyz, out=cord);
+    Or(a=exnotynotz, b=fxnotyz, out=eorf);
+    Or(a=gxynotz, b=hxyz, out=gorh);
+
+    Or(a=aorb, b=cord, out=aorborcord);
+    Or(a=eorf, b=gorh, out=eorforgorh);
+
+    Or(a=aorborcord, b=eorforgorh, out=out);
+}
