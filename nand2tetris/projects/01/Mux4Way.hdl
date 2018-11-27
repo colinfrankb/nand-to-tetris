@@ -1,0 +1,33 @@
+/**
+ * 4-way multiplexor:
+ * out = a if sel == 00
+ *       b if sel == 01
+ *       c if sel == 10
+ *       d if sel == 11
+ */
+
+CHIP Mux4Way {
+    IN a, b, c, d, x, y;
+    OUT out;
+
+    PARTS:
+    //ax'y' + bx'y + cxy' + dxy
+
+    Not(in=x, out=notx);
+    Not(in=y, out=noty);
+
+    And(a=notx, b=noty, out=notxnoty);
+    And(a=notx, b=y, out=notxy);
+    And(a=x, b=noty, out=xnoty);
+    And(a=x, b=y, out=xy);
+
+    And(a=a, b=notxnoty, out=anotxnoty);
+    And(a=b, b=notxy, out=bnotxy);
+    And(a=c, b=xnoty, out=cxnoty);
+    And(a=d, b=xy, out=dxy);
+
+    Or(a=anotxnoty, b=bnotxy, out=anotxnotyorbnotxy);
+    Or(a=cxnoty, b=dxy, out=cxnotyordxy);
+
+    Or(a=anotxnotyorbnotxy, b=cxnotyordxy, out=out);
+}
