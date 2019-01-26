@@ -42,5 +42,34 @@ CHIP ALU {
         ng; // 1 if (out < 0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    // xphaseone is the output of whether x is zerod or stays the same
+    // xphasetwo is the output of whether xphaseone is negated or not negated
+    Mux16(a=x, b[0..15]=false, sel=zx, out=xphaseone);
+    Not16(in=xphaseone, out=notxphaseone);
+    Mux16(a=xphaseone, b=notxphaseone, sel=nx, out=xphasetwo);
+
+    // yphaseone is the output of whether y is zerod or stays the same
+    // yphasetwo is the output of whether yphaseone is negated or not negated
+    Mux16(a=y, b[0..15]=false, sel=zy, out=yphaseone);
+    Not16(in=yphaseone, out=notyphaseone);
+    Mux16(a=yphaseone, b=notyphaseone, sel=ny, out=yphasetwo);
+
+    // compute out = x + y (if 1) or x & y (if 0)
+    // xyphase3 is the output of whether x is added or anded to y
+    Add16(a=xphasetwo, b=yphasetwo, out=xaddy);
+    And16(a=xphasetwo, b=yphasetwo, out=xandy);
+    Mux16(a=xandy, b=xaddy, sel=f, out=xyphase3);
+
+    // negate the out output
+    Not16(in=xyphase3, out=notxyphase3);
+    Mux16(a=xyphase3, b=notxyphase3, sel=no, out=out);
+    // Perform Mux16 again because I need to perform computation on the out value and
+    // I can't connect the gate's output pin to a Part
+    Mux16(a=xyphase3, b=notxyphase3, sel=no, out=preout, out[15]=outmsb);
+
+    // 1 if (out == 0), 0 otherwise
+    IsZero(in=preout, out=zr);
+
+    // 1 if (out < 0),  0 otherwise
+    And(a=true, b=outmsb, out=ng);
 }
