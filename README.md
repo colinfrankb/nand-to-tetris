@@ -7,5 +7,5 @@ This repository serves as my implementation of the practical exercises as laid o
 
 ## References
 
-[https://www.nand2tetris.org/](https://www.nand2tetris.org/)
+[https://www.nand2tetris.org/](https://www.nand2tetris.org/)  
 [https://www.youtube.com/watch?v=wTl5wRDT0CU&feature=youtu.be](https://www.youtube.com/watch?v=wTl5wRDT0CU&feature=youtu.be)
