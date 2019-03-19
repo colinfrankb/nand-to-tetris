@@ -16,5 +16,30 @@ CHIP PC {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    //Solution:
+    //1. Since the register can only exist once, it means all three
+    //   possible inputs (out(t) + 1, 0, out(t)) needs to be instantiated.
+    //2. Use a multiplexor, based on the load, reset and inc bits passed
+    //   into the multiplexors as parts of the sel variable, to output the
+    //   value that will be written to the register.
+    
+    //Note: With this design the register will always be written to, 
+    //      even with it's original value.
+
+    Inc16(in=outputofregister, out=inincremented);
+
+    Mux8Way16(
+      a=outputofregister, 
+      b=in, 
+      c=inincremented, 
+      d=in, 
+      e=false, 
+      f=false, 
+      g=false, 
+      h=false, 
+      sel[0]=load, sel[1]=inc, sel[2]=reset, 
+      out=muxout
+    );
+
+    Register(in=muxout, load=true, out=outputofregister, out=out);
 }
