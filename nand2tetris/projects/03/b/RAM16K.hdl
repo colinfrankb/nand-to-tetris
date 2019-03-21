@@ -15,5 +15,18 @@ CHIP RAM16K {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    //Solution:
+    // Memory is recursively built in sets of 8, except for the RAM16K
+    // which is built from 4 RAM4K chips, so RAM16k is 4096 * 4 = 16384 registers
+    // Therefore, a 2 way demultiplexor and 2 way multiplexor is required.
+    // Same as RAM64, except when passing the address to the RAM64 memory chips,
+    // the address segment is the remaining 12 elements
+    DMux4Way(in=load, sel=address[0..1], a=load1, b=load2, c=load3, d=load4);
+
+    RAM4K(in=in, load=load1, address=address[2..13], out=out1);
+    RAM4K(in=in, load=load2, address=address[2..13], out=out2);
+    RAM4K(in=in, load=load3, address=address[2..13], out=out3);
+    RAM4K(in=in, load=load4, address=address[2..13], out=out4);
+
+    Mux4Way16(a=out1, b=out2, c=out3, d=out4, sel=address[0..1], out=out);
 }
