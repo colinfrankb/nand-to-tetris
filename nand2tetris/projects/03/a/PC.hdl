@@ -11,6 +11,7 @@
  * else                    out[t+1] = out[t]
  */
 
+// Program Counter
 CHIP PC {
     IN in[16],load,inc,reset;
     OUT out[16];
