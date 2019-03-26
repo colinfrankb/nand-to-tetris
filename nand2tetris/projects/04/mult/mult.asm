@@ -18,7 +18,9 @@
     @R2
     M=M+D
     @LOOP
-    0;JMP // How does it know that the address in A is in the instruction address space or the data address space?
+    0;JMP // QUESTION: How does it know that the address in A is in the instruction address space or the data address space?
+          // ANSWER: The fact that the Jump field is set on an instruction means that the CPU will use the value of A as an
+          //         instruction memory address
 (END) 
     @END
     0;JMP
@@ -30,3 +32,6 @@
 // The assembled binary code file will only contains lines for each
 // instruction.
 // Label symbols do not map to instructions
+
+// Observations when using the CPUEmulator GUI:
+// Label symbols are assembled into loading constants into A
