@@ -1,0 +1,29 @@
+CHIP Jump {
+    IN  j1,
+        j2,
+        j3,
+        zr,
+        ng
+
+    OUT out;
+
+    PARTS:
+    // 001 If out > 0 jump  => j1' • j2' • j3 • zr' • ng' 
+    // 010 If out = 0 jump  => j1' • j2 • j3' • zr • ng' 
+    // 011 If out ≥ 0 jump  => j1' • j2 • j3 • zr • ng' 
+    // 100 If out < 0 jump  => j1 • j2' • j3' • zr' • ng 
+    // 101 If out != 0 jump => j1 • j2' • j3 • zr' • ng
+    // 110 If out ≤ 0 jump  => j1 • j2 • j3' • zr • ng
+    // 111 jump             => j1 • j2 • j3
+    
+    Not(in=j1, out=notj1);
+    Not(in=j2, out=notj2);
+    Not(in=j3, out=notj3);
+    Not(in=zr, out=notzr);
+    Not(in=ng, out=notng);
+    
+    And(a=notj1, b=notj2, out=notj1andnotj2);
+    And(a=notj1andnotj2, b=j3, out=notj1andnotj2andj3);
+    And(a=notj1andnotj2andj3, b=notzr, out=notj1andnotj2andj3andnotzr);
+    And(a=notj1andnotj2andj3andnotzr, b=notng, out=notj1andnotj2andj3andnotzrandnotng);
+}
