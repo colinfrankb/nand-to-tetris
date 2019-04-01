@@ -42,6 +42,7 @@ CHIP CPU {
     // Notes:
     // A-instruction ivvvvvvvvvvvvvvv
     // C-instruction ixxaccccccdddjjj
+    //               dest;comp;jump
 
     // A Register
     Register(in=, load=, out=aregisterout);
@@ -50,7 +51,7 @@ CHIP CPU {
     Register(in=, load=, out=);
 
     // ALU
-    ALU(x=, y=, zx=, nx=, zy=, ny=, f=, no=, out=, zr=, ng=);
+    ALU(x=, y=, zx=, nx=, zy=, ny=, f=, no=, out=aluout, zr=aluzr, ng=alung);
 
     // Program Counter
     // Will load what's in A, based on j-bits and ALU's output bits 
@@ -58,6 +59,10 @@ CHIP CPU {
     // The output bits of the ALU is relevant because some of the jump functions
     // depend on the output value of the ALU.
     // The Program Counter will increment by default, therefore I will
-    // hardcode inc=true 
-    PC(in=aregisterout, load=true, inc=true, reset=reset, out=pc);
+    // hardcode inc=true
+    // Example:
+    // @8192
+    // D+M;JGT
+    Jump(j1=instruction[13], j2=instruction[14], j3=instruction[15], zr=aluzr, ng=alung, out=jumpout) 
+    PC(in=aregisterout, load=jumpout, inc=true, reset=reset, out=pc);
 }

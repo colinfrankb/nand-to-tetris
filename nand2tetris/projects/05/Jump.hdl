@@ -16,16 +16,52 @@ CHIP Jump {
     // 110 If out ≤ 0 jump  => j1 • j2 • j3' • zr • ng
     // 111 jump             => j1 • j2 • j3
     
+    // constants
     Not(in=j1, out=notj1);
     Not(in=j2, out=notj2);
     Not(in=j3, out=notj3);
     Not(in=zr, out=notzr);
     Not(in=ng, out=notng);
+    And(a=zr, b=notng, out=zrandnotng);
+    And(a=notzr, b=ng, out=notzrandng);
+    And(a=notzr, b=notng, out=notzrandnotng);
+    And(a=zr, b=ng, out=zrandng);
     
+    // if out > 0 jump
     And(a=notj1, b=notj2, out=notj1andnotj2);
     And(a=notj1andnotj2, b=j3, out=notj1andnotj2andj3);
-    And(a=notj1andnotj2andj3, b=notzr, out=notj1andnotj2andj3andnotzr);
-    And(a=notj1andnotj2andj3andnotzr, b=notng, out=notj1andnotj2andj3andnotzrandnotng);
+    And(a=notj1andnotj2andj3, b=notzrandnotng, out=notj1andnotj2andj3andnotzrandnotng);
 
-    Or(a=notj1andnotj2andj3andnotzrandnotng, b=false, out=out);
+    // if out = 0 jump
+    And(a=notj1, b=j2, out=notj1andj2);
+    And(a=notj1andj2, b=notj3, out=notj1andj2andnotj3);
+    And(a=notj1andj2andnotj3, b=zrandnotng, out=notj1andj2andnotj3andzrandnotng);
+
+    // if out ≥ 0 jump
+    And(a=notj1andj2, b=j3, out=notj1andj2andj3);
+    And(a=notj1andj2andj3, b=zrandnotng, out=notj1andj2andj3andzrandnotng);
+
+    // if out < 0 jump
+    And(a=j1, b=notj2, out=j1andnotj2);
+    And(a=j1andnotj2, b=notj3, out=j1andnotj2andnotj3);
+    And(a=j1andnotj2andnotj3, b=notzrandng, out=j1andnotj2andnotj3andnotzrandng);
+
+    // if out != 0 jump
+    And(a=j1andnotj2, b=j3, out=j1andnotj2andj3);
+    And(a=j1andnotj2andj3, b=notzr, out=j1andnotj2andj3andnotzr);
+
+    // if out ≤ 0 jump
+    And(a=j1, b=j2, out=j1andj2);
+    And(a=j1andj2, b=notj3, out=j1andj2andnotj3);
+    And(a=j1andj2andnotj3, b=zrandng, out=j1andj2andnotj3andzrandng);
+
+    // jump
+    And(a=j1andj2, b=j3, out=j1andj2andj3);
+
+    Or(a=notj1andnotj2andj3andnotzrandnotng, b=notj1andj2andnotj3andzrandnotng, out=outa);
+    Or(a=outa, b=notj1andj2andj3andzrandnotng, out=outb);
+    Or(a=outb, b=j1andnotj2andnotj3andnotzrandng, out=outc);
+    Or(a=outc, b=j1andnotj2andj3andnotzr, out=outd);
+    Or(a=outd, b=j1andj2andnotj3andzrandng, out=oute);
+    Or(a=oute, b=j1andj2andj3, out=out);
 }
