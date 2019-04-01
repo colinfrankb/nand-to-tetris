@@ -3,7 +3,7 @@ CHIP Jump {
         j2,
         j3,
         zr,
-        ng
+        ng;
 
     OUT out;
 
@@ -26,4 +26,6 @@ CHIP Jump {
     And(a=notj1andnotj2, b=j3, out=notj1andnotj2andj3);
     And(a=notj1andnotj2andj3, b=notzr, out=notj1andnotj2andj3andnotzr);
     And(a=notj1andnotj2andj3andnotzr, b=notng, out=notj1andnotj2andj3andnotzrandnotng);
+
+    Or(a=notj1andnotj2andj3andnotzrandnotng, b=false, out=out);
 }
