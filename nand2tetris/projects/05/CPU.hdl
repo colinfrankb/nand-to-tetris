@@ -40,15 +40,35 @@ CHIP CPU {
 
     PARTS:
     // Notes:
-    // A-instruction ivvvvvvvvvvvvvvv
-    // C-instruction ixxaccccccdddjjj
+    // A-instruction ivvvvvvvvvvvvvvv, where i is the MSB, and i=0
+    // C-instruction ixxaccccccdddjjj, where i is the MSB, and i=1
     //               dest;comp;jump
+    // LSB of a n-bit binary sequence is at index 0
+    // MSB of a n-bit binary sequence is at index n-1
+
+    // Multiplexor for ALU output and instruction
+    Mux16(a=instruction, b=aluout, sel=instruction[15], out=aregisterinpin);
+
+    // The A Register must be loaded if the instruction is an A-instruction, or
+    // if the instruction is a C-instruction and the d1 bit is 1, meaning the
+    // output of the ALU must be stored in the A Register
+    
+    // Variables
+    Nand(a=instruction[15], b=false, out=isainstruction);
+    And(a=instruction[15], b=true, out=iscinstruction);
+    And(a=iscinstruction, b=instruction[5], out=iscinstructionandd1);
+    
+    // Check if instruction is A-instruction or 
+    // C-instruction that has d1 set to 1
+    Or(a=isainstruction, b=iscinstructionandd1, out=storeinaregister);
 
     // A Register
-    Register(in=, load=, out=aregisterout);
+    // Split out to addressM, which is the Memory address to fetch the Memory value
+    // for the next clock cycle. The address is 15-bit
+    Register(in=aregisterinpin, load=storeinaregister, out=aregisterout, out[0..14]=addressM);
 
     // D Register
-    Register(in=, load=, out=);
+    Register(in=aluout, load=instruction[4], out=dregisterout);
 
     // ALU
     ALU(x=, y=, zx=, nx=, zy=, ny=, f=, no=, out=aluout, zr=aluzr, ng=alung);

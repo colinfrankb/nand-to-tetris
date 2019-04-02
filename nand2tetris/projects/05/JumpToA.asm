@@ -1,0 +1,12 @@
+    @6
+    D=A
+    A=D+1;JMP
+    @1
+    @2
+    @3
+(ARBITARY)
+    @4
+    @5
+(END) 
+    @END
+    0;JMP
