@@ -16,7 +16,10 @@
  * to write a value to M, the value is placed in outM, the address 
  * of the target location is placed in the addressM output, and the 
  * writeM control bit is asserted. (When writeM==0, any value may 
- * appear in outM). The outM and writeM outputs are combinational: 
+ * appear in outM). 
+ 
+ NOTE:
+ The outM and writeM outputs are combinational: 
  * they are affected instantaneously by the execution of the current 
  * instruction. The addressM and pc outputs are clocked: although they 
  * are affected by the execution of the current instruction, they commit 
@@ -54,7 +57,7 @@ CHIP CPU {
     // output of the ALU must be stored in the A Register
     
     // Variables
-    Nand(a=instruction[15], b=false, out=isainstruction);
+    Not(in=instruction[15], out=isainstruction);
     And(a=instruction[15], b=true, out=iscinstruction);
     And(a=iscinstruction, b=instruction[5], out=iscinstructionandd1);
     
@@ -62,16 +65,34 @@ CHIP CPU {
     // C-instruction that has d1 set to 1
     Or(a=isainstruction, b=iscinstructionandd1, out=storeinaregister);
 
-    // A Register
+    // A Register, using built-in chip. (Exactly the same as Register but assists with GUI)
     // Split out to addressM, which is the Memory address to fetch the Memory value
     // for the next clock cycle. The address is 15-bit
-    Register(in=aregisterinpin, load=storeinaregister, out=aregisterout, out[0..14]=addressM);
+    ARegister(in=aregisterinpin, load=storeinaregister, out=aregisterout, out[0..14]=addressM);
 
-    // D Register
-    Register(in=aluout, load=instruction[4], out=dregisterout);
+    // D Register, using built-in chip. (Exactly the same as Register but assists with GUI)
+    And(a=instruction[4], b=iscinstruction, out=loaddregister);
+    DRegister(in=aluout, load=loaddregister, out=dregisterout);
 
     // ALU
-    ALU(x=, y=, zx=, nx=, zy=, ny=, f=, no=, out=aluout, zr=aluzr, ng=alung);
+    Mux16(a=aregisterout, b=inM, sel=instruction[12], out=aluyinput);
+    ALU(
+      x=dregisterout, 
+      y=aluyinput, 
+      zx=instruction[11], 
+      nx=instruction[10], 
+      zy=instruction[9], 
+      ny=instruction[8], 
+      f=instruction[7], 
+      no=instruction[6], 
+      out=aluout,
+      out=outM, 
+      zr=aluzr, 
+      ng=alung
+    );
+
+    // Write to Memory bit
+    And(a=iscinstruction, b=instruction[3], out=writeM);
 
     // Program Counter
     // Will load what's in A, based on j-bits and ALU's output bits 
@@ -83,6 +104,6 @@ CHIP CPU {
     // Example:
     // @8192
     // D+M;JGT
-    Jump(j1=instruction[13], j2=instruction[14], j3=instruction[15], zr=aluzr, ng=alung, out=jumpout) 
-    PC(in=aregisterout, load=jumpout, inc=true, reset=reset, out=pc);
+    Jump(Cinstruction=iscinstruction, j1=instruction[2], j2=instruction[1], j3=instruction[0], zr=aluzr, ng=alung, out=jumpout);
+    PC(in=aregisterout, load=jumpout, inc=true, reset=reset, out[0..14]=pc);
 }

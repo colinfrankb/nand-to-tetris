@@ -1,5 +1,6 @@
 CHIP Jump {
-    IN  j1,
+    IN  Cinstruction,
+        j1,
         j2,
         j3,
         zr,
@@ -63,5 +64,7 @@ CHIP Jump {
     Or(a=outb, b=j1andnotj2andnotj3andnotzrandng, out=outc);
     Or(a=outc, b=j1andnotj2andj3andnotzr, out=outd);
     Or(a=outd, b=j1andj2andnotj3andzrandng, out=oute);
-    Or(a=oute, b=j1andj2andj3, out=out);
+    Or(a=oute, b=j1andj2andj3, out=jumpout);
+
+    And(a=jumpout, b=Cinstruction, out=out); 
 }
