@@ -40,7 +40,8 @@ CHIP Jump {
 
     // if out ≥ 0 jump
     And(a=notj1andj2, b=j3, out=notj1andj2andj3);
-    And(a=notj1andj2andj3, b=zrandnotng, out=notj1andj2andj3andzrandnotng);
+    Or(a=zr, b=notng, out=zrornotng);
+    And(a=notj1andj2andj3, b=zrornotng, out=notj1andj2andj3andzrandnotng);
 
     // if out < 0 jump
     And(a=j1, b=notj2, out=j1andnotj2);
@@ -54,7 +55,9 @@ CHIP Jump {
     // if out ≤ 0 jump
     And(a=j1, b=j2, out=j1andj2);
     And(a=j1andj2, b=notj3, out=j1andj2andnotj3);
-    And(a=j1andj2andnotj3, b=zrandng, out=j1andj2andnotj3andzrandng);
+    Or(a=zr, b=ng, out=zrorng);
+    And(a=j1andj2andnotj3, b=zrorng, out=j1andj2andnotj3andzrandng);
+    
 
     // jump
     And(a=j1andj2, b=j3, out=j1andj2andj3);
