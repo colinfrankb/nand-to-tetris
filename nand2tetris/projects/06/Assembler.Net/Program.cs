@@ -29,28 +29,13 @@ namespace Assembler.Net
 
         public IList<string> ParseAssemblyInstructions(string[] assemblyInstructions)
         {
+            var remainingAssemblyInstructions = ParseLabelSymbols(assemblyInstructions);
+
             var binaryInstructions = new List<string>();
 
-            foreach (var asmI in assemblyInstructions)
+            // The second loop over the assemblyInstructions will only look for variable symbols
+            foreach (var assemblyInstruction in remainingAssemblyInstructions)
             {
-                var assemblyInstruction = GetNoncomment(asmI);
-
-                if (string.IsNullOrWhiteSpace(assemblyInstruction))
-                {
-                    continue;
-                }
-                    
-
-                if (IsLabelSymbol(assemblyInstruction, out string labelSymbol))
-                {
-                    if (!SymbolDictionary.ContainsKey(labelSymbol))
-                    {
-                        SymbolDictionary[labelSymbol] = binaryInstructions.Count + 1;
-                    }
-
-                    continue;
-                }
-
                 var binaryInstruction = assemblyInstruction;
 
                 if (IsAInstruction(assemblyInstruction))
@@ -88,6 +73,35 @@ namespace Assembler.Net
             return binaryInstructions;
         }
 
+        private IList<string> ParseLabelSymbols(string[] assemblyInstructions)
+        {
+            var remainingAssemblyInstructions = new List<string>();
+
+            for (int i = 0; i < assemblyInstructions.Length; i++)
+            {
+                var assemblyInstruction = GetNoncomment(assemblyInstructions[i]);
+
+                if (string.IsNullOrWhiteSpace(assemblyInstruction))
+                {
+                    continue;
+                }
+
+                if (IsLabelSymbol(assemblyInstruction, out string labelSymbol))
+                {
+                    if (!SymbolDictionary.ContainsKey(labelSymbol))
+                    {
+                        SymbolDictionary[labelSymbol] = remainingAssemblyInstructions.Count; // The address should be address of the proceeding instruction.
+                    }
+
+                    continue;
+                }
+
+                remainingAssemblyInstructions.Add(assemblyInstruction);
+            }
+
+            return remainingAssemblyInstructions;
+        }
+
         private string GetNoncomment(string assemblyInstruction)
         {
             var indexOfComment = assemblyInstruction.IndexOf("//");
@@ -105,7 +119,7 @@ namespace Assembler.Net
             var labelSymbolRegex = new Regex(@"\((?<label>.*)\)");
             var match = labelSymbolRegex.Match(assemblyInstruction);
 
-            labelSymbol = match.Value;
+            labelSymbol = match.Value.Replace("(", "").Replace(")", "");
 
             return match.Success;
         }
@@ -236,11 +250,6 @@ namespace Assembler.Net
 
                 return _symbolDictionary;
             }
-        }
-
-        private void SetSymbol(string symbol, int address)
-        {
-            
         }
 
         private (string, string) GetCompAndJumpFields(string[] compAndJumpFieldsSplit)
