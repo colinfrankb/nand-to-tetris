@@ -1,3 +1,33 @@
-push constant 7
-push constant 8
-add
+@7
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@8
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP
+A=M-1
+D=M
+@SP
+M=M-1
+@R5
+M=D
+@SP
+A=M-1
+D=M
+@SP
+M=M-1
+@R5
+D=D+M
+@SP
+A=M
+M=D
+@SP
+M=M+1

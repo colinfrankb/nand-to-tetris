@@ -4,15 +4,30 @@ using System.Text;
 
 namespace VM.Net.Commands
 {
-    public class Push
+    public class Push : Command
     {
-        public string Execute(Stack stack, string segment, int index)
+        private readonly string _segment;
+        private readonly string _index;
+
+        public Push(string segment, string index)
         {
-            var assemblyInstructions = new StringBuilder();
+            _segment = segment;
+            _index = index;
+        }
 
-            assemblyInstructions.Append(stack.PushD());
+        public override IList<string> Execute(Stack stack)
+        {
+            var assemblyInstructions = new List<string>();
 
-            return assemblyInstructions.ToString();
+            if (_segment == "constant")
+            {
+                assemblyInstructions.Add($"@{_index}");
+                assemblyInstructions.Add("D=A");
+            }
+
+            assemblyInstructions.AddRange(stack.Push_D_OntoStack());
+
+            return assemblyInstructions;
         }
     }
 }

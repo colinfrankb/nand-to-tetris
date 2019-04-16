@@ -1,22 +1,39 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace VM.Net
 {
     public class Stack
     {
-        private int StackPointer { get; set; }
-
-        public string PushD()
+        public IList<string> Push_D_OntoStack()
         {
-            var assemblyInstruction = new StringBuilder();
+            var assemblyInstruction = new List<string>
+            {
+                //SP == 0
+                $"@SP",
+                $"A=M",
+                $"M=D",
+                $"@SP",
+                $"M=M+1"
+            };
 
-            assemblyInstruction.Append($"@{StackPointer}");
-            assemblyInstruction.Append($"M=D");
-
-            return assemblyInstruction.ToString();
+            return assemblyInstruction;
         }
 
-        public void Pop(int value)
-        { }
+        public IList<string> PopTo_D()
+        {
+            var assemblyInstruction = new List<string>
+            {
+                //SP == 0
+                $"@SP",
+                $"A=M-1",
+                $"D=M",
+                $"@SP",
+                $"M=M-1"
+            };
+
+            return assemblyInstruction;
+        }
     }
 }

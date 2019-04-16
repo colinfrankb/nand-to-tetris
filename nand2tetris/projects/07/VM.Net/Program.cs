@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using VM.Net.Commands;
 
 namespace VM.Net
 {
@@ -10,9 +13,17 @@ namespace VM.Net
         {
             string[] lines = File.ReadAllLines(args[0]);
 
-            var parser = new Parser();
+            var commandFactory = new CommandFactory();
+            var parser = new Parser(commandFactory);
+            var stack = new Stack();
 
-            var assemblyInstructions = parser.ParseVMCommands(lines);
+            var commands = parser.ParseVMCommands(lines);
+
+            var assemblyInstructions = commands.Aggregate(new List<string>(), (a, c) => 
+            {
+                a.AddRange(c.Execute(stack));
+                return a;
+            });
 
             // Implement Memory Segments as a dictionary
             // Implement VM Commands as individual classes
@@ -25,11 +36,18 @@ namespace VM.Net
 
         public class Parser
         {
-            public IList<string> ParseVMCommands(string[] lines)
+            private readonly CommandFactory _commandFactory;
+
+            public Parser(CommandFactory commandFactory)
+            {
+                _commandFactory = commandFactory;
+            }
+
+            public IEnumerable<Command> ParseVMCommands(string[] lines)
             {
                 var remainingLines = StripComments(lines);
 
-                return remainingLines;
+                return remainingLines.Select(line => _commandFactory.Create(line));
             }
 
             private IList<string> StripComments(string[] lines)
