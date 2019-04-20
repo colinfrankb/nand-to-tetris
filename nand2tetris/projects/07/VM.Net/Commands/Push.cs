@@ -24,6 +24,19 @@ namespace VM.Net.Commands
                 assemblyInstructions.Add($"@{_index}");
                 assemblyInstructions.Add("D=A");
             }
+            else if(_segment == "temp")
+            {
+                assemblyInstructions.Add($"@{MemorySegments.GetTempSymbol(_index)}");
+                assemblyInstructions.Add("D=M");
+            }
+            else
+            {
+                assemblyInstructions.Add($"@{MemorySegments.PredefinedSymbols[_segment]}");
+                assemblyInstructions.Add("D=M");
+                assemblyInstructions.Add($"@{_index}");
+                assemblyInstructions.Add("A=D+A");
+                assemblyInstructions.Add("D=M");
+            }
 
             assemblyInstructions.AddRange(stack.Push_D_OntoStack());
 

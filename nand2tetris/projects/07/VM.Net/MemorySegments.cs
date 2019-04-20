@@ -6,16 +6,13 @@ namespace VM.Net
 {
     public class MemorySegments
     {
-        private IDictionary<string, int> _memorySegments = new Dictionary<string, int>
+        public static IDictionary<string, string> PredefinedSymbols = new Dictionary<string, string>
         {
-            { "argument", 0 },
-            { "local", 0 },
-            { "static", 0 },
-            { "constant", 0 },
-            { "this", 0 },
-            { "that", 0 },
-            { "pointer", 0 },
-            { "temp", 0 }
+            { "local", "LCL" },
+            { "argument", "ARG" },
+            { "this", "THIS" },
+            { "that", "THAT" },
+            { "temp", "R5" }
         };
 
         // Segments mapped to memory
@@ -33,5 +30,12 @@ namespace VM.Net
         // that => Heap (2048-16383)
         // pointer[0..1] => Register RAM[3..4]
         // temp[0..7] => Register RAM[5..12]
+
+        public static string R15 = "R15";
+
+        public static string GetTempSymbol(string index)
+        {
+            return $"R{5 + Convert.ToInt32(index)}";
+        }
     }
 }

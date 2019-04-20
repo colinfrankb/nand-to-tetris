@@ -19,16 +19,15 @@ namespace VM.Net
 
             var commands = parser.ParseVMCommands(lines);
 
+            Console.WriteLine($"{commands.Count()} commands found.");
+
             var assemblyInstructions = commands.Aggregate(new List<string>(), (a, c) => 
             {
                 a.AddRange(c.Execute(stack));
                 return a;
             });
 
-            // Implement Memory Segments as a dictionary
-            // Implement VM Commands as individual classes
-            // Implement assembly code for each VM Command
-            // The VM Commands will reach into the memory segments
+            Console.WriteLine($"{assemblyInstructions.Count()} assembly instructions generated.");
 
             File.WriteAllLines($"{args[0].Split('.')[0]}.asm", assemblyInstructions);
         }

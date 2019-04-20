@@ -16,8 +16,26 @@ namespace VM.Net
             {
                 case "push":
                     return new Push(segment, index);
+                case "pop":
+                    return new Pop(segment, index);
                 case "add":
                     return new Add();
+                case "sub":
+                    return new Sub();
+                case "eq":
+                    return new Eq();
+                case "lt":
+                    return new Lt();
+                case "gt":
+                    return new Gt();
+                case "neg":
+                    return new Neg();
+                case "and":
+                    return new And();
+                case "or":
+                    return new Or();
+                case "not":
+                    return new Not();
 
                 default:
                     throw new NotSupportedException();
