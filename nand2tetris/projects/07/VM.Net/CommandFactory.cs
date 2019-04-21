@@ -5,7 +5,7 @@ namespace VM.Net
 {
     public class CommandFactory
     {
-        public Command Create(string line)
+        public Command Create(VMCommandsContext context, string line)
         {
             var commandFields = line.Split(' ');
             var commandName = commandFields[0];
@@ -15,9 +15,9 @@ namespace VM.Net
             switch (commandName)
             {
                 case "push":
-                    return new Push(segment, index);
+                    return new Push(context, segment, index);
                 case "pop":
-                    return new Pop(segment, index);
+                    return new Pop(context, segment, index);
                 case "add":
                     return new Add();
                 case "sub":

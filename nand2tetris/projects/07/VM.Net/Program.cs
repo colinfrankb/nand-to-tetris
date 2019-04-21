@@ -11,13 +11,15 @@ namespace VM.Net
     {
         static void Main(string[] args)
         {
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(args[0]);
+            var fileDirectoryName = Path.GetDirectoryName(args[0]);
             string[] lines = File.ReadAllLines(args[0]);
 
             var commandFactory = new CommandFactory();
             var parser = new Parser(commandFactory);
             var stack = new Stack();
 
-            var commands = parser.ParseVMCommands(lines);
+            var commands = parser.ParseVMCommands(new VMCommandsContext { FileName = fileNameWithoutExtension }, lines);
 
             Console.WriteLine($"{commands.Count()} commands found.");
 
@@ -29,7 +31,7 @@ namespace VM.Net
 
             Console.WriteLine($"{assemblyInstructions.Count()} assembly instructions generated.");
 
-            File.WriteAllLines($"{args[0].Split('.')[0]}.asm", assemblyInstructions);
+            File.WriteAllLines($"{fileDirectoryName}\\{fileNameWithoutExtension}.asm", assemblyInstructions);
         }
 
 
@@ -42,11 +44,11 @@ namespace VM.Net
                 _commandFactory = commandFactory;
             }
 
-            public IEnumerable<Command> ParseVMCommands(string[] lines)
+            public IEnumerable<Command> ParseVMCommands(VMCommandsContext context, string[] lines)
             {
                 var remainingLines = StripComments(lines);
 
-                return remainingLines.Select(line => _commandFactory.Create(line));
+                return remainingLines.Select(line => _commandFactory.Create(context, line));
             }
 
             private IList<string> StripComments(string[] lines)
