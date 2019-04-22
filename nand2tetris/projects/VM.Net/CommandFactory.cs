@@ -41,6 +41,8 @@ namespace VM.Net
                     return new Label(context, segment);
                 case "goto":
                     return new Goto(context, segment);
+                case "if-goto":
+                    return new IfGoto(context, segment);
 
                 default:
                     throw new NotSupportedException();
