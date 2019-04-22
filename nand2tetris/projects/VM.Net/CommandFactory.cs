@@ -1,5 +1,6 @@
 ﻿using System;
 using VM.Net.Commands;
+using VM.Net.Commands.ProgramFlow;
 
 namespace VM.Net
 {
@@ -36,6 +37,10 @@ namespace VM.Net
                     return new Or();
                 case "not":
                     return new Not();
+                case "label":
+                    return new Label(context, segment);
+                case "goto":
+                    return new Goto(context, segment);
 
                 default:
                     throw new NotSupportedException();
