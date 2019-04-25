@@ -8,6 +8,7 @@ namespace VM.Net
     {
         public static IDictionary<string, string> PredefinedSymbols = new Dictionary<string, string>
         {
+            { "stackpointer", "SP" },
             { "local", "LCL" },
             { "argument", "ARG" },
             { "this", "THIS" },
@@ -31,6 +32,7 @@ namespace VM.Net
         // pointer[0..1] => Register RAM[3..4]
         // temp[0..7] => Register RAM[5..12]
 
+        public static string R14 = "R14";
         public static string R15 = "R15";
 
         public static string GetTempSymbol(string index)
