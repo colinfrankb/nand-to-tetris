@@ -7,5 +7,6 @@ namespace VM.Net
     public class VMCommandsContext
     {
         public string FileName { get; set; }
+        public string FunctionName { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using VM.Net.Commands;
 using VM.Net.Commands.ProgramFlow;
+using VM.Net.Commands.SubroutineCalling;
 
 namespace VM.Net
 {
@@ -43,6 +44,12 @@ namespace VM.Net
                     return new Goto(context, segment);
                 case "if-goto":
                     return new IfGoto(context, segment);
+                case "function":
+                    return new Function(context, segment, index);
+                case "return":
+                    return new Return(context);
+                case "call":
+                    return new Call(context, segment, index);
 
                 default:
                     throw new NotSupportedException();

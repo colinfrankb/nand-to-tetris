@@ -15,6 +15,9 @@ namespace VM.Net.Commands.SubroutineCalling
             _context = context;
             _functionName = functionName;
             _k_localVariables = Convert.ToInt32(k_localVariables);
+
+            //Set Function of context
+            context.FunctionName = functionName;
         }
 
         public override IList<string> Execute(Stack stack)

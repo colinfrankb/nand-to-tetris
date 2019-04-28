@@ -11,19 +11,56 @@ namespace VM.Net
     {
         static void Main(string[] args)
         {
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(args[0]);
+            var fileAttributes = File.GetAttributes(args[0]);
             var fileDirectoryName = Path.GetDirectoryName(args[0]);
-            string[] lines = File.ReadAllLines(args[0]);
+            var filePaths = new List<string>();
+            var assemblyProgramFilePathWithoutExtension = string.Empty;
+
+            if ((fileAttributes & FileAttributes.Directory) == FileAttributes.Directory)
+            {
+                assemblyProgramFilePathWithoutExtension = $"{args[0]}\\{args[0].Split("\\").Last()}";
+                filePaths.AddRange(Directory.GetFiles(args[0], "*.vm"));
+            }
+            else
+            {
+                assemblyProgramFilePathWithoutExtension = $"{fileDirectoryName}\\{fileDirectoryName.Split("\\").Last()}";
+                filePaths.Add(args[0]);
+            }
+
+            Console.WriteLine("The following files will be read:");
+            Console.WriteLine(string.Join(Environment.NewLine, filePaths));
 
             var commandFactory = new CommandFactory();
             var parser = new Parser(commandFactory);
             var stack = new Stack();
+            var commands = new List<Command>();
 
-            var commands = parser.ParseVMCommands(new VMCommandsContext { FileName = fileNameWithoutExtension }, lines);
+            foreach (var filePath in filePaths)
+            {
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+                string[] lines = File.ReadAllLines(filePath);
+
+                commands.AddRange(parser.ParseVMCommands(
+                    new VMCommandsContext
+                    {
+                        FileName = fileNameWithoutExtension
+                    }, 
+                    lines
+                ));
+            }
 
             Console.WriteLine($"{commands.Count()} commands found.");
 
-            var assemblyInstructions = commands.Aggregate(new List<string>(), (a, c) => 
+            //Initialize Stack Pointer memory address
+            var assemblyInstructions = new List<string>
+            {
+                "@256",
+                "D=A",
+                $"@{MemorySegments.SP}",
+                "M=D"
+            };
+
+            assemblyInstructions = commands.Aggregate(assemblyInstructions, (a, c) => 
             {
                 a.AddRange(c.Execute(stack));
                 return a;
@@ -31,7 +68,7 @@ namespace VM.Net
 
             Console.WriteLine($"{assemblyInstructions.Count()} assembly instructions generated.");
 
-            File.WriteAllLines($"{fileDirectoryName}\\{fileNameWithoutExtension}.asm", assemblyInstructions);
+            File.WriteAllLines($"{assemblyProgramFilePathWithoutExtension}.asm", assemblyInstructions);
         }
 
 

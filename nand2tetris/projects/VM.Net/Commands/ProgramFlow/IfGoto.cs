@@ -21,7 +21,7 @@ namespace VM.Net.Commands.ProgramFlow
 
             assemblyInstructions.AddRange(stack.PopTo_D());
 
-            assemblyInstructions.Add($"@{_labelName}");
+            assemblyInstructions.Add($"@{_context.FunctionName}${_labelName}");
             assemblyInstructions.Add("D;JNE");
 
             return assemblyInstructions;

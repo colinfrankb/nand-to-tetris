@@ -32,6 +32,11 @@ namespace VM.Net
         // pointer[0..1] => Register RAM[3..4]
         // temp[0..7] => Register RAM[5..12]
 
+        public static string SP = "SP";
+        public static string LCL = "LCL";
+        public static string ARG = "ARG";
+        public static string THIS = "THIS";
+        public static string THAT = "THAT";
         public static string R14 = "R14";
         public static string R15 = "R15";
 

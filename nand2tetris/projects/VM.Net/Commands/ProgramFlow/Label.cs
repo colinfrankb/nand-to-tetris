@@ -19,7 +19,7 @@ namespace VM.Net.Commands.ProgramFlow
         {
             var assemblyInstructions = new List<string>();
 
-            assemblyInstructions.Add($"({_labelName})");
+            assemblyInstructions.Add($"({_context.FunctionName}${_labelName})");
 
             return assemblyInstructions;
         }
