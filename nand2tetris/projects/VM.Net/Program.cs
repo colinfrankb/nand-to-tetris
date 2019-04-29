@@ -27,6 +27,9 @@ namespace VM.Net
                 filePaths.Add(args[0]);
             }
 
+            //Sys.vm is required to the first file executed
+            filePaths = filePaths.OrderBy(filePath => filePath, new FilePathComparer()).ToList();
+
             Console.WriteLine("The following files will be read:");
             Console.WriteLine(string.Join(Environment.NewLine, filePaths));
 

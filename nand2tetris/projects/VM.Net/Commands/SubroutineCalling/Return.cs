@@ -6,10 +6,11 @@ namespace VM.Net.Commands.SubroutineCalling
 {
     public class Return : Command
     {
+        private readonly VMCommandsContext _context;
+
         public Return(VMCommandsContext context)
         {
-            //Reset Function of context
-            context.FunctionName = string.Empty;
+            _context = context;
         }
 
         public override IList<string> Execute(Stack stack)

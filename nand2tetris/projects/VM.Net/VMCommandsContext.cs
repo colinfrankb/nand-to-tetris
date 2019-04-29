@@ -7,6 +7,6 @@ namespace VM.Net
     public class VMCommandsContext
     {
         public string FileName { get; set; }
-        public string FunctionName { get; set; }
+        public Stack<string> FunctionNames = new Stack<string>();
     }
 }

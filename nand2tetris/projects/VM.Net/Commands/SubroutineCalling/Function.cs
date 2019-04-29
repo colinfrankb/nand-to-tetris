@@ -15,14 +15,20 @@ namespace VM.Net.Commands.SubroutineCalling
             _context = context;
             _functionName = functionName;
             _k_localVariables = Convert.ToInt32(k_localVariables);
-
-            //Set Function of context
-            context.FunctionName = functionName;
         }
 
         public override IList<string> Execute(Stack stack)
         {
             var assemblyInstructions = new List<string>();
+
+            //Reset Function of context
+            if (_context.FunctionNames.Count > 0)
+            {
+                _context.FunctionNames.Pop();
+            }
+
+            //Set Function of context
+            _context.FunctionNames.Push(_functionName);
 
             //Declare a Label Symbol for the function entry
             assemblyInstructions.Add($"({_functionName})");

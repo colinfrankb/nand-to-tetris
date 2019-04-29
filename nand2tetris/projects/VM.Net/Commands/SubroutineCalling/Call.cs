@@ -56,8 +56,8 @@ namespace VM.Net.Commands.SubroutineCalling
             assemblyInstructions.Add("M=D");
 
             //goto f
-            var gotoCommand = new Goto(_context, _functionName);
-            assemblyInstructions.AddRange(gotoCommand.Execute(stack));
+            assemblyInstructions.Add($"@{_functionName}");
+            assemblyInstructions.Add("0;JMP");
 
             //(return-address)
             assemblyInstructions.Add($"({returnAddressLabelSymbol})");

@@ -19,7 +19,7 @@ namespace VM.Net.Commands.ProgramFlow
         {
             var assemblyInstructions = new List<string>();
 
-            assemblyInstructions.Add($"@{_context.FunctionName}${_labelName}");
+            assemblyInstructions.Add($"@{_context.FunctionNames.Peek()}${_labelName}");
             assemblyInstructions.Add("0;JMP");
 
             return assemblyInstructions;
