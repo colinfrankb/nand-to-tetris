@@ -9,13 +9,13 @@ namespace VM.Net.Commands.SubroutineCalling
     {
         private readonly VMCommandsContext _context;
         private readonly string _functionName;
-        private readonly string _n_arguments;
+        private readonly int _n_arguments;
 
         public Call(VMCommandsContext context, string functionName, string n_arguments)
         {
             _context = context;
             _functionName = functionName;
-            _n_arguments = n_arguments;
+            _n_arguments = Convert.ToInt32(n_arguments);
         }
 
         public override IList<string> Execute(Stack stack)
@@ -25,7 +25,9 @@ namespace VM.Net.Commands.SubroutineCalling
             var returnAddressLabelSymbol = Guid.NewGuid().ToString();
 
             //push return-address
-            Push_M_OfSymbolOntoStack(assemblyInstructions, returnAddressLabelSymbol, stack);
+            assemblyInstructions.Add($"@{returnAddressLabelSymbol}");
+            assemblyInstructions.Add("D=A");
+            assemblyInstructions.AddRange(stack.Push_D_OntoStack());
 
             //push LCL
             Push_M_OfSymbolOntoStack(assemblyInstructions, MemorySegments.LCL, stack);

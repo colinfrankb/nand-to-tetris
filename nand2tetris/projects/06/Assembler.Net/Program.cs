@@ -90,7 +90,7 @@ namespace Assembler.Net
                 {
                     if (!SymbolDictionary.ContainsKey(labelSymbol))
                     {
-                        SymbolDictionary[labelSymbol] = remainingAssemblyInstructions.Count; // The address should be address of the proceeding instruction.
+                        SymbolDictionary[labelSymbol] = remainingAssemblyInstructions.Count; // The address should be the address of the proceeding instruction.
                     }
 
                     continue;

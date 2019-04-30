@@ -20,7 +20,7 @@ namespace VM.Net.Commands.SubroutineCalling
             //FRAME = LCL
             //Save the base address of the local segment because that's
             //the top of the previous frame
-            assemblyInstructions.Add($"@{MemorySegments.PredefinedSymbols["local"]}");
+            assemblyInstructions.Add($"@{MemorySegments.LCL}");
             assemblyInstructions.Add("D=M");
             assemblyInstructions.Add($"@{MemorySegments.R14}"); //using R14 for FRAME
             assemblyInstructions.Add("M=D");
@@ -36,14 +36,14 @@ namespace VM.Net.Commands.SubroutineCalling
             //set ARG of the calling function to it, since the return value can be looked at,
             //
             assemblyInstructions.AddRange(stack.PopTo_D());
-            assemblyInstructions.Add($"@{MemorySegments.PredefinedSymbols["argument"]}");
+            assemblyInstructions.Add($"@{MemorySegments.ARG}");
             assemblyInstructions.Add("A=M");
             assemblyInstructions.Add("M=D");
 
             //SP = ARG + 1
-            assemblyInstructions.Add($"@{MemorySegments.PredefinedSymbols["argument"]}");
+            assemblyInstructions.Add($"@{MemorySegments.ARG}");
             assemblyInstructions.Add("D=M+1");
-            assemblyInstructions.Add($"@{MemorySegments.PredefinedSymbols["stackpointer"]}");
+            assemblyInstructions.Add($"@{MemorySegments.SP}");
             assemblyInstructions.Add("M=D");
 
             //THAT = *(FRAME - 1)

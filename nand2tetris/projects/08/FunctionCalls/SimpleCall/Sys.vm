@@ -1,0 +1,11 @@
+function Sys.init 0
+//call Sys.main 0
+label LOOP
+goto LOOP
+
+//function Sys.main 0
+//push constant 3001
+//pop pointer 0
+//push constant 4001
+//pop pointer 1
+//return

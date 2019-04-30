@@ -27,7 +27,7 @@ namespace VM.Net
                 filePaths.Add(args[0]);
             }
 
-            //Sys.vm is required to the first file executed
+            //Sys.vm is required to be the first file executed
             filePaths = filePaths.OrderBy(filePath => filePath, new FilePathComparer()).ToList();
 
             Console.WriteLine("The following files will be read:");
@@ -37,6 +37,7 @@ namespace VM.Net
             var parser = new Parser(commandFactory);
             var stack = new Stack();
             var commands = new List<Command>();
+            var bootstrap = new Bootstrap();
 
             foreach (var filePath in filePaths)
             {
@@ -54,14 +55,7 @@ namespace VM.Net
 
             Console.WriteLine($"{commands.Count()} commands found.");
 
-            //Initialize Stack Pointer memory address
-            var assemblyInstructions = new List<string>
-            {
-                "@256",
-                "D=A",
-                $"@{MemorySegments.SP}",
-                "M=D"
-            };
+            var assemblyInstructions = bootstrap.GenerateAssemblyInstructions();
 
             assemblyInstructions = commands.Aggregate(assemblyInstructions, (a, c) => 
             {
