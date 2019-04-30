@@ -12,7 +12,6 @@ namespace VM.Net.Commands
 
             //Get the top value on the stack
             assemblyInstructions.AddRange(stack.PopTo_D());
-            //R5 == 5
             //Save it temporarily in order to get the
             //second value on the stack
             assemblyInstructions.Add($"@{MemorySegments.R15}");

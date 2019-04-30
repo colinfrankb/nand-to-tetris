@@ -28,13 +28,14 @@ namespace VM.Net.Commands.SubroutineCalling
             //RET = *(FRAME - 5), RET is return address
             assemblyInstructions.Add($"@5");
             assemblyInstructions.Add("D=D-A");
+            assemblyInstructions.Add("A=D");
+            assemblyInstructions.Add("D=M");
             assemblyInstructions.Add($"@{MemorySegments.R15}"); //using R15 for RET
             assemblyInstructions.Add("M=D");
 
             //*ARG = pop()
-            //The return value of the completed function will be on top of the stack,
-            //set ARG of the calling function to it, since the return value can be looked at,
-            //
+            //The "Current ARG", will become the top of the stack for the function the
+            //program is returning to
             assemblyInstructions.AddRange(stack.PopTo_D());
             assemblyInstructions.Add($"@{MemorySegments.ARG}");
             assemblyInstructions.Add("A=M");
@@ -62,6 +63,7 @@ namespace VM.Net.Commands.SubroutineCalling
 
             //goto RET
             assemblyInstructions.Add($"@{MemorySegments.R15}");
+            assemblyInstructions.Add("A=M");
             assemblyInstructions.Add("0;JMP");
 
             return assemblyInstructions;
