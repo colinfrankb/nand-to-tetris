@@ -36,7 +36,7 @@ A=M
 M=D
 @SP
 M=M+1
-@8675fec0-fb20-4ae7-adcc-097f1fcc5791
+@14c64fb2-e61d-4353-880e-eabefa6302b5
 D=A
 @SP
 A=M
@@ -85,7 +85,7 @@ D=M
 M=D
 @Main.fibonacci
 0;JMP
-(8675fec0-fb20-4ae7-adcc-097f1fcc5791)
+(14c64fb2-e61d-4353-880e-eabefa6302b5)
 (Sys.init$WHILE)
 @Sys.init$WHILE
 0;JMP
@@ -119,16 +119,16 @@ A=M-1
 D=M
 @SP
 M=M-1
-@R5
+@R15
 D=D-M
-@f846ea9a-8531-4ff3-9d56-9442d81e74b7
+@22a603f1-ce7d-4fc7-abbd-3ca16b541243
 D;JLT
 D=0
-@46db967e-6e1a-4125-aa51-9b41e4cd19b0
+@ab07e2ea-5079-4c63-8d59-1a11f1f905af
 0;JMP
-(f846ea9a-8531-4ff3-9d56-9442d81e74b7)
+(22a603f1-ce7d-4fc7-abbd-3ca16b541243)
 D=-1
-(46db967e-6e1a-4125-aa51-9b41e4cd19b0)
+(ab07e2ea-5079-4c63-8d59-1a11f1f905af)
 @SP
 A=M
 M=D
@@ -248,7 +248,7 @@ A=M
 M=D
 @SP
 M=M+1
-@33d9aa27-ff0f-4e69-8720-8b8007ce75b7
+@42c88840-70ab-418e-bf6a-42ab9e124479
 D=A
 @SP
 A=M
@@ -297,7 +297,7 @@ D=M
 M=D
 @Main.fibonacci
 0;JMP
-(33d9aa27-ff0f-4e69-8720-8b8007ce75b7)
+(42c88840-70ab-418e-bf6a-42ab9e124479)
 @ARG
 D=M
 @0
@@ -334,7 +334,7 @@ A=M
 M=D
 @SP
 M=M+1
-@cc00e46e-0dd4-4dfb-ba49-0d3c13e6085c
+@368895b1-c589-4b8e-a54d-1614a947ea1f
 D=A
 @SP
 A=M
@@ -383,7 +383,7 @@ D=M
 M=D
 @Main.fibonacci
 0;JMP
-(cc00e46e-0dd4-4dfb-ba49-0d3c13e6085c)
+(368895b1-c589-4b8e-a54d-1614a947ea1f)
 @SP
 A=M-1
 D=M

@@ -20,7 +20,7 @@ namespace VM.Net.Commands
             //Get the new top value on the stack
             assemblyInstructions.AddRange(stack.PopTo_D());
 
-            assemblyInstructions.Add("@R5");
+            assemblyInstructions.Add($"@{MemorySegments.R15}");
             assemblyInstructions.Add("D=D-M");
 
             var setDTOTrue = Guid.NewGuid();
