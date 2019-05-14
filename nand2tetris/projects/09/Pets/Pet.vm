@@ -1,0 +1,41 @@
+function Pet.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push pointer 0
+return
+function Pet.getName 0
+push argument 0
+pop pointer 0
+push this 0
+return
+function Pet.run 0
+push argument 0
+pop pointer 0
+push this 1
+push argument 1
+add
+pop this 1
+push constant 0
+return
+function Pet.adopt 1
+push constant 6
+call String.new 1
+push constant 109
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 99
+call String.appendChar 2
+push constant 107
+call String.appendChar 2
+push constant 105
+call String.appendChar 2
+push constant 101
+call String.appendChar 2
+call Pet.new 1
+pop local 0
+push local 0
+return

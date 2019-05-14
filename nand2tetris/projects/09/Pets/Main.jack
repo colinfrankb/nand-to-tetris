@@ -1,0 +1,11 @@
+class Main {
+    function void main() {
+        var Pet puppy;
+
+        let puppy = Pet.new("jackie");
+        
+        do Output.printString(puppy.getName());
+
+        return;
+    }
+}

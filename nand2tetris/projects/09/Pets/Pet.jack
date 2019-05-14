@@ -1,0 +1,28 @@
+class Pet {
+    field String name;
+    field int distanceCovered;
+
+    constructor Pet new(String n) {
+        let name = n;
+        
+        return this;
+    }
+
+    method String getName() { 
+        return name; 
+    } 
+
+    method void run(int distance) {
+        let distanceCovered = distanceCovered + distance;
+
+        return;
+    }
+
+    function Pet adopt() {
+        var Pet pet;
+
+        let pet = Pet.new("mickie");
+
+        return pet;
+    }
+}
