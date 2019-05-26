@@ -1,0 +1,33 @@
+class Main {
+    field int xcoord, ycoord;
+    static boolean flag; 
+
+    function void main() {
+      do add();
+
+      return;
+    }
+
+    function int add(int x, int y) {
+      var int sum;
+      
+      let sum = 0;
+      
+      return sum;
+    }
+
+    function int multiply(int x, int y)
+    {
+      var int product;
+
+      let product = 0;
+
+      while (y > 0)
+      {
+        let product = product + x;
+        let y = y - 1;
+      }
+
+      return product;
+    }
+}
