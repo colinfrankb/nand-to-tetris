@@ -3,13 +3,19 @@ class Main {
     static boolean flag; 
 
     function void main() {
+      var Array numbers;
+
+      let numbers = Array.new(4);
+
+      let numbers[0] = 1;
+
       do add();
 
       return;
     }
 
     function int add(int x, int y) {
-      var int sum;
+      var int sum, result;
       
       let sum = 0;
       
@@ -21,6 +27,19 @@ class Main {
       var int product;
 
       let product = 0;
+
+      if (x = 0)
+      {
+        return 0;
+      }
+      else {
+
+      }
+
+      if (y = 0)
+      {
+        return 0;
+      }
 
       while (y > 0)
       {

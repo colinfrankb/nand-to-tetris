@@ -26,7 +26,51 @@
 <symbol> ) </symbol>
 <subroutineBody>
 <symbol> { </symbol>
+<varDec>
+<keyword> var </keyword>
+<identifier> Array </identifier>
+<identifier> numbers </identifier>
+<symbol> ; </symbol>
+</varDec>
 <statements>
+<letStatement>
+<keyword> let </keyword>
+<identifier> numbers </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> Array </identifier>
+</term>
+<symbol> . </symbol>
+<term>
+<identifier> new </identifier>
+</term>
+<symbol> ( </symbol>
+<term>
+<integerConstant> 4 </integerConstant>
+</term>
+<symbol> ) </symbol>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> numbers </identifier>
+<symbol> [ </symbol>
+<expression>
+<term>
+<integerConstant> 0 </integerConstant>
+</term>
+</expression>
+<symbol> ] </symbol>
+<symbol> = </symbol>
+<expression>
+<term>
+<integerConstant> 1 </integerConstant>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
 <doStatement>
 <keyword> do </keyword>
 <identifier> add </identifier>
@@ -61,6 +105,8 @@
 <keyword> var </keyword>
 <keyword> int </keyword>
 <identifier> sum </identifier>
+<symbol> , </symbol>
+<identifier> result </identifier>
 <symbol> ; </symbol>
 </varDec>
 <statements>
@@ -68,7 +114,11 @@
 <keyword> let </keyword>
 <identifier> sum </identifier>
 <symbol> = </symbol>
+<expression>
+<term>
 <integerConstant> 0 </integerConstant>
+</term>
+</expression>
 <symbol> ; </symbol>
 </letStatement>
 <returnStatement>
@@ -106,9 +156,50 @@
 <keyword> let </keyword>
 <identifier> product </identifier>
 <symbol> = </symbol>
+<expression>
+<term>
 <integerConstant> 0 </integerConstant>
+</term>
+</expression>
 <symbol> ; </symbol>
 </letStatement>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<identifier> x </identifier>
+<symbol> = </symbol>
+<integerConstant> 0 </integerConstant>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<returnStatement>
+<keyword> return </keyword>
+<integerConstant> 0 </integerConstant>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+<keyword> else </keyword>
+<symbol> { </symbol>
+<symbol> } </symbol>
+</ifStatement>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<identifier> y </identifier>
+<symbol> = </symbol>
+<integerConstant> 0 </integerConstant>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<returnStatement>
+<keyword> return </keyword>
+<integerConstant> 0 </integerConstant>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
 <whileStatement>
 <keyword> while </keyword>
 <symbol> ( </symbol>
@@ -117,20 +208,38 @@
 <integerConstant> 0 </integerConstant>
 <symbol> ) </symbol>
 <symbol> { </symbol>
+<statements>
+<letStatement>
 <keyword> let </keyword>
 <identifier> product </identifier>
 <symbol> = </symbol>
+<expression>
+<term>
 <identifier> product </identifier>
+</term>
 <symbol> + </symbol>
+<term>
 <identifier> x </identifier>
+</term>
+</expression>
 <symbol> ; </symbol>
+</letStatement>
+<letStatement>
 <keyword> let </keyword>
 <identifier> y </identifier>
 <symbol> = </symbol>
+<expression>
+<term>
 <identifier> y </identifier>
+</term>
 <symbol> - </symbol>
+<term>
 <integerConstant> 1 </integerConstant>
+</term>
+</expression>
 <symbol> ; </symbol>
+</letStatement>
+</statements>
 <symbol> } </symbol>
 </whileStatement>
 <returnStatement>
