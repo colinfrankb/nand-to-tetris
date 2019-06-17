@@ -31,7 +31,13 @@
 <symbol> = </symbol>
 <expression>
 <term>
-<identifier> game </identifier>
+<identifier> SquareGame </identifier>
+<symbol> . </symbol>
+<identifier> new </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
 </term>
 </expression>
 <symbol> ; </symbol>
@@ -43,8 +49,6 @@
 <identifier> run </identifier>
 <symbol> ( </symbol>
 <expressionList>
-<expression>
-</expression>
 </expressionList>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
@@ -56,8 +60,6 @@
 <identifier> dispose </identifier>
 <symbol> ( </symbol>
 <expressionList>
-<expression>
-</expression>
 </expressionList>
 <symbol> ) </symbol>
 <symbol> ; </symbol>
@@ -106,7 +108,7 @@
 <symbol> ( </symbol>
 <expression>
 <term>
-<identifier> i </identifier>
+<keyword> false </keyword>
 </term>
 </expression>
 <symbol> ) </symbol>
@@ -118,7 +120,7 @@
 <symbol> = </symbol>
 <expression>
 <term>
-<identifier> i </identifier>
+<stringConstant> string constant </stringConstant>
 </term>
 </expression>
 <symbol> ; </symbol>
@@ -129,7 +131,7 @@
 <symbol> = </symbol>
 <expression>
 <term>
-<identifier> j </identifier>
+<keyword> null </keyword>
 </term>
 </expression>
 <symbol> ; </symbol>
@@ -140,14 +142,21 @@
 <symbol> [ </symbol>
 <expression>
 <term>
-<identifier> i </identifier>
+<integerConstant> 1 </integerConstant>
 </term>
 </expression>
 <symbol> ] </symbol>
 <symbol> = </symbol>
 <expression>
 <term>
-<identifier> j </identifier>
+<identifier> a </identifier>
+<symbol> [ </symbol>
+<expression>
+<term>
+<integerConstant> 2 </integerConstant>
+</term>
+</expression>
+<symbol> ] </symbol>
 </term>
 </expression>
 <symbol> ; </symbol>
@@ -165,6 +174,19 @@
 <term>
 <identifier> i </identifier>
 </term>
+<symbol> * </symbol>
+<term>
+<symbol> ( </symbol>
+<expression>
+<term>
+<symbol> - </symbol>
+<term>
+<identifier> j </identifier>
+</term>
+</term>
+</expression>
+<symbol> ) </symbol>
+</term>
 </expression>
 <symbol> ; </symbol>
 </letStatement>
@@ -175,6 +197,19 @@
 <expression>
 <term>
 <identifier> j </identifier>
+</term>
+<symbol> / </symbol>
+<term>
+<symbol> ( </symbol>
+<expression>
+<term>
+<symbol> - </symbol>
+<term>
+<integerConstant> 2 </integerConstant>
+</term>
+</term>
+</expression>
+<symbol> ) </symbol>
 </term>
 </expression>
 <symbol> ; </symbol>
