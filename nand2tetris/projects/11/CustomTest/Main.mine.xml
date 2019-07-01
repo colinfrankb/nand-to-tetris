@@ -5,13 +5,25 @@
 <subroutineDec>
 <keyword> function </keyword>
 <keyword> void </keyword>
-<identifier> main </identifier>
+<identifier category="subroutine"> main </identifier>
 <symbol> ( </symbol>
 <parameterList>
 </parameterList>
 <symbol> ) </symbol>
 <subroutineBody>
 <symbol> { </symbol>
+<varDec>
+<keyword> var </keyword>
+<keyword> int </keyword>
+<identifier category="var" kind="var" isBeingDefined="True" runningIndex="0"> x </identifier>
+<symbol> ; </symbol>
+</varDec>
+<varDec>
+<keyword> var </keyword>
+<keyword> int </keyword>
+<identifier category="var" kind="var" isBeingDefined="True" runningIndex="1"> y </identifier>
+<symbol> ; </symbol>
+</varDec>
 <statements>
 </statements>
 <symbol> } </symbol>

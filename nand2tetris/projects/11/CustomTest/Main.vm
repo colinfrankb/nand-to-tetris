@@ -1,0 +1,6 @@
+function Main.main 0
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+push constant 0
