@@ -1,8 +1,22 @@
 class Main {
 
    function void main() {
-      //do Output.printInt(1 + (2 * 3));
+      var int value;
+
+      do Main.fillMemory(8001, 16, -1);
+
       return;
    }
 
+   function void convert(int value) {
+      return;
+   }
+
+   function void nextMask(int mask) {
+      return;
+   }
+
+   function void fillMemory(int startAddress, int length, int value) {
+      return;
+   }
 }

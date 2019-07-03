@@ -1,6 +1,18 @@
-function Main.main 0
-<returnStatement>
-<keyword> return </keyword>
-<symbol> ; </symbol>
-</returnStatement>
+function Main.main 1
+push constant 8001
+push constant 16
+push constant 1
+neg
+call Main.fillMemory 3
+pop temp 0
 push constant 0
+return
+function Main.convert 0
+push constant 0
+return
+function Main.nextMask 0
+push constant 0
+return
+function Main.fillMemory 0
+push constant 0
+return
