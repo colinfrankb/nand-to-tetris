@@ -1,9 +1,11 @@
 class Main {
 
    function void main() {
-      var int value;
+      var int value; // the VM will allocate memory in the LOCAL memory segment
 
       do Main.fillMemory(8001, 16, -1);
+      let value = Memory.peek(8000);
+      do Main.convert(value);
 
       return;
    }
@@ -17,6 +19,16 @@ class Main {
    }
 
    function void fillMemory(int startAddress, int length, int value) {
+      while (13) {
+          
+      }
+
+      //label l1
+      //vm code for ~(expression)
+      //if-goto l2
+      //vm code for executing body of while
+      //goto l1
+      //label l2
       return;
    }
 }
