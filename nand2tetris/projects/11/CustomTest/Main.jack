@@ -19,7 +19,7 @@ class Main {
    }
 
    function void fillMemory(int startAddress, int length, int value) {
-      while (13) {
+      while (length) {
           
       }
 
