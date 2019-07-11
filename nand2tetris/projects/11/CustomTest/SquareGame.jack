@@ -6,11 +6,10 @@
 // (same as projects/09/Square/Main.jack)
 
 /** Initializes a new Square Dance game and starts running it. */
-class Main {
-    function void main() {
-        var SquareGame game;
-        let game = SquareGame.new();
-                
-        return;
-    }
+class SquareGame {
+  field int direction;
+
+  constructor SquareGame new() {
+    let direction = -1;  
+  }
 }
