@@ -14,3 +14,8 @@ class Main {
         return;
     }
 }
+
+//TODO and questions:
+//constructor function must return base address to initialised object.
+//push pointer 0
+//when is pointer 0 actually set

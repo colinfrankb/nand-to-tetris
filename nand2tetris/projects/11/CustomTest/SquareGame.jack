@@ -10,6 +10,8 @@ class SquareGame {
   field int direction;
 
   constructor SquareGame new() {
-    let direction = -1;  
+    let direction = 1;
+
+    return this;
   }
 }
