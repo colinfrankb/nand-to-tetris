@@ -1,12 +1,11 @@
 class Main {
+
     function void main() {
-        var SquareGame game;
-        let game = SquareGame.new();
-
-        //The calling function needs to put the memory address on game
-        //onto the global stack first.
+        var PongGame game;
+        do PongGame.newInstance();
+        let game = PongGame.getInstance();
         do game.run();
-
+        
         return;
     }
 }

@@ -40,7 +40,7 @@ CHIP Memory {
     Screen(in=in, load=loadscreen, address=address[0..12], out=screenout);
     Keyboard(out=kbdout);
 
-    // inside the multiplexor I also have to be aware of the order of the bytes
+    // inside the multiplexor I also have to be aware of the order of the bits
     // a if sel == 00
     // b if sel == 01
     // c if sel == 10
